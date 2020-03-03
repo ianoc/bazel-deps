@@ -32,7 +32,12 @@ cd \$SCRIPT_LOCATION
 
 REPO_ROOT=\$(git rev-parse --show-toplevel)
 
-BAZEL_DEPS_PATH="\$HOME/.bazel-deps-cache/${BAZEL_DEPS_VERSION}"
+if [ -z \$BAZEL_DEPS_CACHE_LOCATION ];
+  BAZEL_DEPS_CACHE_LOCATION="\$HOME/.bazel-deps-cache"
+fi
+mkdir -p \$BAZEL_DEPS_CACHE_LOCATION
+
+BAZEL_DEPS_PATH="\${BAZEL_DEPS_CACHE_LOCATION}/${BAZEL_DEPS_VERSION}"
 
 if [ ! -f \${BAZEL_DEPS_PATH} ]; then
   ( # Opens a subshell
